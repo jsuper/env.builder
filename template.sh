@@ -1,12 +1,16 @@
 #!/bin/sh
 
-### BEGIN INFOMATION
-# Require-Install: $build-essentials 
-# Download-Address: http://www.baidu.com
-# Provides: author
-# Description: This is used to install or uninstall author
-# Group: org.tony.demo
-### END INFORMATION
+### BEGIN INFO
+# Require-Install:    $build-essentials 
+# Download-Address:   http://www.baidu.com
+# Version:            1.0
+# Name:               Software_name
+# Provider:           author
+# Description:        This is used to install or uninstall author
+# Group:              org.tony.demo
+### END INFO
+
+
 
 case $1 in
     install)
