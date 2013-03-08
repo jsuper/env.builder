@@ -1,0 +1,7 @@
+build [soft]                         -To install new software
+       -all build all
+       -soft build concret software
+       -
+install                              -install current builder to path
+
+install scripts folder ./scripts/xxx-install.sh
