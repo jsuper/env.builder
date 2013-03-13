@@ -10,18 +10,24 @@ import os
 def print_usage():
     os.system('cat README')
 
-def parsing_ins_scripts():
-    script_name = sys.argv[3] + '-install.sh'
+def parsing_ins_scripts(script_name):
     script_file = open(script_name)
     line = script_file.readline()
     start = False
     while line:
-        if !start && line.startswith('### BEGIN INFO'):
+        if (not start) and line.startswith('### BEGIN INFO'):
             start=True
-        if start && line.startswith('### END INFO'):
+        if start and line.startswith('### END INFO'):
             start=False
             break
-        if start :
+        if start and (not line.startswith('###')) :
+            data = line.split(':')
+            print data
+        line = script_file.readline()
+
+def entrance():
+    script_name = sys.argv[1] + '-install.sh'
+    parsing_ins_scripts(script_name)
             
         
 
