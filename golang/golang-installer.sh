@@ -2,12 +2,14 @@
 
 ### This script is used to install golang development environment
 BASEDIR=$(dirname `readlink -f "$0"`)
-LOGIN_USER=$(who|awk '{print $1}'|uniq)
+login_user=$2
+builder_dir=$3
+
 ### install from local file
 install_from_local () {
     extension_name="${1##*.}"
     file_name=$1
-
+    echo $1
     case $extension_name in
 	
 	tar.gz | gz)
@@ -15,14 +17,16 @@ install_from_local () {
 	    cp $1 /opt/golang/sdk
 	    cd /opt/golang/sdk
 	    pwd
-	    tar xvf $file_name
+	    tar xvf $(basename $file_name)
 	    target=`ls -l | grep '^d.*go'|awk '{print $9}'`
 	    golang_home=\"`pwd`\/$target\"
-	    echo GO_HOME=$golang_home>>$BASEDIR/../set-env.sh
-	    echo PATH=\"\$PATH:\$GO_HOME/bin\">>$BASEDIR/../set-env.sh
-	    echo>>$BASEDIR/../set-env.sh
-	    source /home/$LOGIN_USER/.bash_profile
+	    echo GO_HOME=$golang_home>>$builder_dir/env.sh
+	    echo PATH=\"\$PATH:\$GO_HOME/bin\">>$builder_dir/env.sh
+	    echo>>$builder_dir/env.sh
 	    echo "Golang sdk install successfully"
+	    
+	    #clean installation
+	    rm /opt/golang/sdk/$(basename $file_name)
 	    ;;
 	
 	zip)

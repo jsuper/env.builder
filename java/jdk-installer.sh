@@ -2,26 +2,33 @@
 
 ### This script is used to install java development toolkit
 BASEDIR=$(dirname `readlink -f "$0"`)
+login_user=$2
+builder_dir=$3
 ### install from local file
 install_from_local () {
-    extension_name="${1#*.}"
-    file_name="${1##*/}"
-
+    extension_name="${1##*.}"
+    file_name=$1
     case $extension_name in
 
-	tar.gz)
+	tar.gz | gz)
             mkdir -p /opt/java/jdk
 	    cp $1 /opt/java/jdk
 	    cd /opt/java/jdk
 	    pwd
-	    tar xvf $file_name
+	    tar xvf $(basename $file_name)
 	    target=`ls -l | grep '^d.*jdk'|awk '{print $9}'`
 	    java_home=\"`pwd`\/$target\"
-	    echo JAVA_HOME=$java_home>>$BASEDIR/../set-env.sh
-	    echo PATH=\"\$PATH:\$JAVA_HOME/bin\">>$BASEDIR/../set-env.sh
-	    echo>>$BASEDIR/../set-env.sh
-	    source /home/anylinux/.bash_profile
-	    echo "Java Development Toolkit is installed successfully"
+	    echo JAVA_HOME=$java_home>>$builder_dir/env.sh
+	    echo PATH=\"\$PATH:\$JAVA_HOME/bin\">>$builder_dir/env.sh
+	    echo>>$builder_dir/env.sh
+	    
+	    #config system default java and javac env
+	    update-alternatives --set java `pwd`/$target/bin/java
+	    update-alternatives --set javac `pwd`/$target/bin/javac
+
+	    #clear installation
+	    rm /opt/java/jdk/$(basename $file_name)
+	    echo "Install successfully"
 	    ;;
 	
 	zip)
