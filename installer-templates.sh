@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### This script is used to install java development toolkit
-
+login_user=`who|awk '{print $1}'|uniq`
 ### install from local file
 install_from_local () {
     extension_name="${1#*.}"
