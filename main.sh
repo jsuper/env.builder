@@ -39,7 +39,7 @@ fi
 #sh ./java/jdk-installer.sh /home/commons/installer-repos/jdk/1.7.17/x64/jdk.tar.gz $login_user $builder_dir
 
 #install golang 
-sh ./golang/golang-installer.sh /home/commons/installer-repos/golang/1.0.3/x64/go.tar.gz $login_user $builder_dir
+#sh ./golang/golang-installer.sh /home/commons/installer-repos/golang/1.0.3/x64/go.tar.gz $login_user $builder_dir
 
 source $bash_profile
 
